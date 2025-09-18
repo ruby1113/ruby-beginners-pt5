@@ -18,7 +18,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
-          bundler-cache: true   # caches gems between builds
+          bundler-cache: true
 
       - name: Install dependencies
         run: bundle install --jobs 4 --retry 3
@@ -27,4 +27,6 @@ jobs:
         run: bundle exec rspec --format documentation
 
       - name: Run RuboCop lint
-        run: bundle exec rubocop --display-cop-names --extra-details --display-style-guide
+        run: |
+          echo "AllCops:\n  NewCops: enable" > .rubocop.yml
+          bundle exec rubocop --display-cop-names --extra-details --display-style-guide
