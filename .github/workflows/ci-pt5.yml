@@ -15,26 +15,30 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Set up Ruby
+      # 2. Make scripts executable
+      - name: Make scripts executable
+        run: chmod +x bin/hello
+
+      # 3. Set up Ruby
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
           bundler-cache: true
 
-      # 3. Install dependencies
+      # 4. Install dependencies
       - name: Install dependencies
         run: bundle install --jobs 4 --retry 3
 
-      # 4. Run RSpec tests
+      # 5. Run RSpec tests
       - name: Run RSpec tests
         run: bundle exec rspec --format documentation
 
-      # 5. Setup RuboCop config to auto-enable new cops
+      # 6. Setup RuboCop config to auto-enable new cops
       - name: Setup RuboCop config
         run: |
           echo "AllCops:" > .rubocop.yml
           echo "  NewCops: enable" >> .rubocop.yml
-      # 6. Run RuboCop lint
+      # 7. Run RuboCop lint
       - name: Run RuboCop lint
         run: bundle exec rubocop --display-cop-names --extra-details --display-style-guide
