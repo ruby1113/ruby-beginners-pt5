@@ -37,8 +37,6 @@ jobs:
 AllCops:
   NewCops: enable
 EOF
-
       # 6. Run RuboCop lint
       - name: Run RuboCop lint
         run: bundle exec rubocop --display-cop-names --extra-details --display-style-guide
-
